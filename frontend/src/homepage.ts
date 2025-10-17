@@ -1,10 +1,10 @@
 import { renderHeader } from "./components/header/header.js";
+import { buttonContainer } from "./components/button/button.js";
 // import { pomodoro_timer } from "./timer/pomodoro_timer.js"
 // import { API_BASE } from "./variable"
 
 //For reference:
 //https://tailwind.build/classes
-
 function	headerbox_container(): HTMLElement {
 	const	headerbox = document.createElement("div");
 	headerbox.className = "flex justify-start";
@@ -26,44 +26,31 @@ function	homePage_container(): HTMLElement {
 
 	//px(pr + pl)-> left + right
 	//py(pt + pb)-> top + bottom
-	const	button = document.createElement("button");
-	button.className = "ease-out transform transition hover:scale-125 inline \
-						delay 75 duration-200 bg-teal-400 px-6 py-2 m-6 \
-						border-2 border-blue-500 hover:border-gray-500 \
-						hover:hover:text-black hover:opacity-50 hover:shadow-md";
+	const	button = buttonContainer({classes:{containerClass:"flex justify-center",buttonClass:"flex justify-center"},
+										id:{containerId:"button_container",buttonId:"button"}});
 
 	//p(padding) -> space inside the element(between content and border)
 	//m(margin) -> space outside of element(between this and other elements)
 	const	titleWrapper = document.createElement("div");
 	titleWrapper.className = "flex flex-col text-2xl font-bold";
 
-	titleWrapper.append(welcomeTitle, title);
+	titleWrapper.append(welcomeTitle, title, button);
 	return(titleWrapper);
-}
-
-function	button_container(): HTMLElement {
-	//const	timer_button = document.createElement("button");
-	//update title and change background to zen once you press the button:
-	/*
-		const title = document.querySelector("h1");
-		if (title) title.textContent = "Updated Title";
-		const img = document.querySelector("img");
-		if (img) img.setAttribute("alt", "A cool picture");
-	*/
-	const	buttonWrapper = document.createElement("div");
-	buttonWrapper.className = "text-2xl font-bold p-6";
-	return (buttonWrapper);
 }
 
 export function HeaderHome_container(): HTMLElement {
 	const	titleWrapper = homePage_container();
 	const	headerbox = headerbox_container();
-	const	buttonWrapper = button_container();
+	// const	buttonWrapper = buttonContainer({
+	// 	classAppend: {
+	// 		container: 
+	// 	}
+	// });
 
 	//flex-col as column and flex-grow expand to fill all available space left
 	const	homePage = document.createElement("div");
 	homePage.className = "flex flex-col justify-center items-center flex-grow text-center";
-	homePage.append(titleWrapper, buttonWrapper);
+	homePage.append(titleWrapper);
 
 	const	homePageWrapper = document.createElement("div");
 	homePageWrapper.className = "flex flex-col min-h-screen";
