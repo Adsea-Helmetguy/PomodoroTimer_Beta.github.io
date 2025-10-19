@@ -2,9 +2,9 @@ import { buttonContainer } from "./button.js";
 
 //time
 let timeLeft = 25 * 60; //default, 25mins
-//let timer: number | null = null;
+let timer: number | null = null;
 
-function	update_timerDisplay(): HTMLElement {
+function	timerDisplay_function(): HTMLElement {
 	const timerDisplay = document.createElement("div");
 	timerDisplay.id = "timer";
 
@@ -16,33 +16,69 @@ function	update_timerDisplay(): HTMLElement {
 	const	secs = Math.floor(timeLeft % 60).toString().padStart(2, '0');
 	timerDisplay.textContent = `${mins}:${secs}`;
 
-	// timerDisplay.className = ""
-
 	return (timerDisplay);
+}
+
+function	update_timerDisplay() {
+	const timerDisplay = document.getElementById("timer");
+	if (timerDisplay) {
+		const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+		const secs = Math.floor(timeLeft % 60).toString().padStart(2, '0');
+		timerDisplay.textContent = `${mins}:${secs}`;
+	}
+}
+
+function stopTimer() {
+	if (timer) {
+		clearInterval(timer);
+		timer = null;
+		alert('Pomodoro complete! Time to take a break!');
+	}
+}
+
+function countdown () {
+	timeLeft--;
+	update_timerDisplay();
+	if (timeLeft <= 0)
+		stopTimer();
+}
+
+function startTimer() {
+	if (timer)
+		return; // if timer isn't null, stop here
+	timer = setInterval(countdown, 1000);
+}
+
+function pomodoro_Timer() {
+	if (timer)
+		return; // if timer isn't null, stop here
+	startTimer();
 }
 
 export function pomodoro_creator(): HTMLElement {
 	//https://tailwindcss.com/docs/background-color
-	const	startButton = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"Start"}, customised:{text: "Start", colour: "bg-sky-400"}});
-	const   pauseButton = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"Pause"}, customised:{text: "Rest", colour: "bg-green-400"}});
-	const	resetButton = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"Reset"}, customised:{text: "Pause", colour: "bg-red-400"}});
-	const	timerDisplay = update_timerDisplay();
+	const	pomodoro_Button = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"Pomodoro"}, customised:{text: "Pomodoro", colour: "text-sky-600", hover: true}});
+	const   shortrest_Button = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"shortrest"}, customised:{text: "Rest", colour: "text-green-600", hover: true}});
+	const	longrest_Button = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"longrest"}, customised:{text: "Long break", colour: "text-red-600", hover: true}});
+	const	start_cancel_Button = buttonContainer({classes:{buttonClass:"flex justify-center"}, id:{buttonId:"Pomodoro_Button"}, customised:{text: "Start", colour: "text-sky-600", border: "border-3", hover: true, focus: true}});
+	const	timerDisplay = timerDisplay_function();
 
 	// startButton.addEventListener('click', startTimer);
-	// pauseButton.addEventListener('click', pauseTimer);
-	// resetButton.addEventListener('click', resetTimer);
+	// shortrest_Button.addEventListener('click', shortrest_Button);
+	// longrest_Button.addEventListener('click', longrest_Button);
+	start_cancel_Button.addEventListener('click', pomodoro_Timer);
 
 
 	const	pomodoro = document.createElement("div");
 	pomodoro.id = "pomodoro";
-	pomodoro.className = "flex flex-col p-2";
+	pomodoro.className = "flex flex-col p-2 space-y-10";
 
 	const	pomodoro_buttons = document.createElement("div");
 	pomodoro_buttons.id = "pomodoro";
-	pomodoro_buttons.className = "flex flex-row justify-center p-2";
+	pomodoro_buttons.className = "flex flex-row justify-center space-x-10";
+	pomodoro_buttons.append(pomodoro_Button , shortrest_Button, longrest_Button);
 
-	pomodoro_buttons.append(startButton , pauseButton, resetButton);
-	pomodoro.append(pomodoro_buttons, timerDisplay);
+	pomodoro.append(pomodoro_buttons, timerDisplay, start_cancel_Button);
 	return (pomodoro);
 }
 

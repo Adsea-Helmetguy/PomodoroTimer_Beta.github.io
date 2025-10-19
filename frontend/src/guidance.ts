@@ -23,23 +23,23 @@ function updateDisplay() {
 }
 
 function startTimer() {
-  if (timer) return; // prevent multiple timers
-  timer = setInterval(() => {
-    timeLeft--;
-    updateDisplay();
-    if (timeLeft <= 0) {
-      clearInterval(timer!);
-      timer = null;
-      alert('Pomodoro complete!');
-    }
-  }, 1000);
+if (timer) return; // prevent multiple timers
+timer = setInterval(() => {
+	timeLeft--;
+	updateDisplay();
+	if (timeLeft <= 0) {
+	clearInterval(timer!);
+	timer = null;
+	alert('Pomodoro complete!');
+	}
+}, 1000);
 }
 
 function resetTimer() {
-  clearInterval(timer!);
-  timer = null;
-  timeLeft = 25 * 60;
-  updateDisplay();
+	clearInterval(timer!);
+	timer = null;
+	timeLeft = 25 * 60;
+	updateDisplay();
 }
 
 startBtn.addEventListener('click', startTimer);

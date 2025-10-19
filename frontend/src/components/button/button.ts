@@ -1,5 +1,9 @@
 export interface buttonProps{
 	colour?:string;
+	border?:string;
+	hover?:boolean;
+	focus?:boolean;
+	// interaction?:boolean;
 	// size?:string;
 	// hover?:boolean;
 	// textColour?:string;
@@ -31,16 +35,24 @@ export function buttonContainer(props:buttonContainerProps): HTMLElement {
 	container.id = `${ids.containerId}`;
 	button.id = `${ids.buttonId}`;
 	container.className = `${classes.containerClass}`;
-	button.className = `ease-out transform transition hover:scale-125 inline \
-						delay 75 duration-200 bg-teal-400 px-6 py-2 m-0 \
-						border-2 border-blue-500 hover:border-gray-500 focus:ring-4 focus:ring-blue-300 \
-						hover:hover:text-black hover:opacity-50 hover:shadow-md ${classes.buttonClass}`;
+	button.className = `ease-out transform transition inline px-6 py-2 m-0 \
+						delay 75 duration-200 bg-teal-400 rounded-md \
+						${classes.buttonClass}`;
 	
 	if (customised && customised.text)
 		button.textContent = `${customised.text}`;
-	if (customised && customised.colour) {
-		button.classList.remove(`bg-teal-400`);
-		button.classList.add(customised.colour);
+	if (customised)
+	{
+		if (customised.colour) {
+			button.classList.remove(`bg-teal-400`);
+			button.classList.add(customised.colour);
+		}
+		if (customised.border)
+			button.classList.add(customised.border);
+		if (customised.hover && customised.hover === true)
+			button.classList.add("hover:scale-125", "hover:bg-sky-100", "hover:shadow-md");
+		if (customised.focus && customised.focus === true)
+			button.classList.add("focus:ring-4", "focus:ring-blue-300");
 	}
 		
 	container.appendChild(button);
