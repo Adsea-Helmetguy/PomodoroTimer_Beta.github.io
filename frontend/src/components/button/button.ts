@@ -10,6 +10,7 @@ export interface buttonProps{
 	// shadow?:string;
 	// border?:string;
 	text?:string;
+	other_addons?:string;
 }
 export interface classAppend {
 	containerClass?:string | null;
@@ -29,14 +30,15 @@ export function buttonContainer(props:buttonContainerProps): HTMLElement {
 	const	ids = props.id;
 	const	classes = props.classes;
 	const	customised = props.customised;
-	const	container = document.createElement("div");
+
 	const	button = document.createElement("button");
+	const	container = document.createElement("div");
 
 	container.id = `${ids.containerId}`;
-	button.id = `${ids.buttonId}`;
 	container.className = `${classes.containerClass}`;
+	button.id = `${ids.buttonId}`;
 	button.className = `ease-out transform transition inline px-6 py-2 m-0 \
-						delay 75 duration-200 bg-teal-400 rounded-md \
+						delay 75 duration-200 bg-teal-400 rounded-4xl \
 						${classes.buttonClass}`;
 	
 	if (customised && customised.text)
@@ -53,10 +55,14 @@ export function buttonContainer(props:buttonContainerProps): HTMLElement {
 			button.classList.add("hover:scale-125", "hover:bg-sky-100", "hover:shadow-md");
 		if (customised.focus && customised.focus === true)
 			button.classList.add("focus:ring-4", "focus:ring-blue-300");
+		if (customised.other_addons)
+			button.classList.add(`${customised.other_addons}`);
 	}
-		
+
 	container.appendChild(button);
-	return (container);
+	if (container && classes.containerClass)
+		return (container);
+	return (button);
 }
 
 //switch cases

@@ -1,13 +1,18 @@
 // import {  } from "./Todolist.js"
 import { renderApp } from "./router.js"
+import { pomodoro_creator } from "./components/button/pomodoro_timer.js";
 
 window.addEventListener("DOMContentLoaded", renderApp);
 window.addEventListener("popstate", renderApp);
+
+window.addEventListener("DOMContentLoaded", () => {
+	const app = document.getElementById("app");
+	if (app && !document.getElementById("pomodoro")) {
+		app.append(pomodoro_creator());
+	}
+});
 
 /*
-window.addEventListener("DOMContentLoaded", renderApp);
-window.addEventListener("popstate", renderApp);
-
 window.addEventListener('click', (e: Event) => {
 	const target = e.target as HTMLElement;
 	const anchor = target.closest('a');
