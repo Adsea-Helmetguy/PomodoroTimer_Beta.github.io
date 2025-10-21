@@ -10,10 +10,12 @@ import { renderHomePage } from "./homepage.js";
 
 export function renderApp() {
 	const app = document.getElementById("app")!;
+	const app_header = document.getElementById("app_header")!;
 	app.innerHTML = "";
+	app_header.innerHTML = "";
 
 	const path = window.location.pathname;
 	if (path === '/') {
-		renderHomePage(app);
+		renderHomePage(app, app_header);
 	}
 }

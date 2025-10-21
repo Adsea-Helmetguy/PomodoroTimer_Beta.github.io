@@ -4,15 +4,6 @@ import { pomodoro_creator } from "./components/button/pomodoro_timer.js"
 
 //For reference:
 //https://tailwind.build/classes
-function	headerbox_container(): HTMLElement {
-	const	headerbox = document.createElement("div");
-	headerbox.className = "flex justify-start";
-	headerbox.id = "headerbox";
-
-	renderHeader(headerbox);
-	return(headerbox);
-}
-
 function	homePage_container(): HTMLElement {
 	const	welcomeTitle = document.createElement("p");
 	welcomeTitle.className = "flex justify-center text-2xl font-bold"
@@ -46,25 +37,34 @@ function	homePage_container(): HTMLElement {
 	return(titleWrapper);
 }
 
-export function HeaderHome_container(): HTMLElement {
+function	header_container_creation(): HTMLElement {
+	const	headerbox = document.createElement("div");
+	headerbox.className = "grid grid w-full bg-gray-100"
+	headerbox.id = "headerbox";
+
+	renderHeader(headerbox);
+	return(headerbox);
+}
+
+function Home_container_creation(): HTMLElement {
 	const	titleWrapper = homePage_container();
-	const	headerbox = headerbox_container();
+	// const	headerbox = headerbox_container();
 
 	//flex-col as column and flex-grow expand to fill all available space left
 	const	homePage = document.createElement("div");
-	homePage.className = "flex flex-col justify-center items-center flex-grow text-center";
+	homePage.className = "flex flex-col justify-center items-center text-center";
 	homePage.append(titleWrapper);
-
-	const	homePageWrapper = document.createElement("div");
-	homePageWrapper.className = "flex flex-col min-h-screen";
-	homePageWrapper.append(headerbox, homePage);
-	return homePageWrapper;
+	return homePage;
 }
 
-export function renderHomePage(container: HTMLElement) {
-	const homePage = HeaderHome_container();
-	container.append(homePage);
-	return container;
+
+export function renderHomePage(main_container: HTMLElement, header_container: HTMLElement) {
+	const	homePage = Home_container_creation();
+	const	header = header_container_creation();
+	homePage.className = "py-20"
+
+	main_container.append(homePage);
+	header_container.append(header);
 }
 
 /*

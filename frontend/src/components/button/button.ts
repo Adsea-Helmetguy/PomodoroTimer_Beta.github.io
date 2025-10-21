@@ -43,8 +43,7 @@ export function buttonContainer(props:buttonContainerProps): HTMLElement {
 	
 	if (customised && customised.text)
 		button.textContent = `${customised.text}`;
-	if (customised)
-	{
+	if (customised) {
 		if (customised.colour) {
 			button.classList.remove(`bg-teal-400`);
 			button.classList.add(customised.colour);
@@ -60,9 +59,7 @@ export function buttonContainer(props:buttonContainerProps): HTMLElement {
 	}
 
 	container.appendChild(button);
-	if (container && classes.containerClass)
-		return (container);
-	return (button);
+	return (container);
 }
 
 //switch cases

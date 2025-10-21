@@ -2,7 +2,8 @@
 
 export function createHeader(): HTMLElement {
     const header = document.createElement("header");
-    header.className = "flex justify-between w-full bg-gray-100 text-black p-2 items-center";
+    header.className = "flex justify-between p-4 w-full bg-gray-100 text-black items-center";
+
 
     // Logo
     const logo = document.createElement("a");
@@ -13,7 +14,7 @@ export function createHeader(): HTMLElement {
 
     // Navigation container
     const nav = document.createElement("nav");
-    nav.className = "flex flex-col sm:flex-row sm:flex-wrap space-x-1";
+    nav.className = "flex gap-4";
 
     header.append(nav);
 
@@ -21,20 +22,20 @@ export function createHeader(): HTMLElement {
     const createMenuItem = (text: string, href: string, tooltip: string): HTMLElement => {
         const link = document.createElement("a");
         link.href = href; //the "/location"
-        link.className = "flex p-2 text-black hover:bg-blue-100 hover:underline \
+        link.className = "text-black hover:bg-blue-100 hover:underline \
                             hover:text-blue-900 hover:shadow-md rounded-md \
                             hover:border-gray-500 transform transition";
 		link.textContent = text;
 
 		const tooltipDiv = document.createElement("div");
 		tooltipDiv.className =
-			"absolute left-1/2 top-full -translate-x-1/2 mt-2 w-max text-sm text-gray-800 bg-white border \
+			"absolute right-0 mt-2 w-max text-sm text-gray-800 bg-white border \
 			border-gray-300 rounded shadow-lg px-2 py-1 opacity-0 group-hover:opacity-100 \
 			pointer-events-none transition-opacity duration-200"
 		tooltipDiv.textContent = tooltip;
 
         const wrapper = document.createElement("div");
-        wrapper.className = "flex flex-shrink relative group";
+        wrapper.className = "relative group";
         wrapper.append(link, tooltipDiv);
         return wrapper;
     };
