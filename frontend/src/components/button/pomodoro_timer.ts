@@ -1,4 +1,5 @@
 import { buttonContainer } from "./button.js";
+import audio from "../../resources_png_mp3/cat_meow.mp3";
 
 //use this:
 //https://tailwindcss.com/docs
@@ -51,7 +52,7 @@ function	stopTimer(button: Element) {
 		stopbutton_add_hidden?.classList.add("hidden");
 
 	button.textContent = "Start";
-	button.classList.remove("text-green-600", "text-yellow-600");
+	button.classList.remove("text-sky-600", "text-yellow-600");
 	button.classList.add("text-sky-600");
 }
 
@@ -69,8 +70,8 @@ function	pauseTimer(button: Element) {
 		clearInterval(timer);
 		timer = null;
 		button.textContent = "Resume";
-		button.classList.remove("text-green-600", "text-yellow-600");
-		button.classList.add("text-sky-600");
+		button.classList.remove("text-sky-600", "text-yellow-600");
+		button.classList.add("text-yellow-600");
 		update_timerDisplay();
 		return;
 	}
@@ -81,7 +82,7 @@ function	startTimer(button: Element) {
 	if (timer)
 		return;
 	button.textContent = "Pause";
-	button.classList.remove("text-green-600", "text-yellow-600");
+	button.classList.remove("text-sky-600", "text-yellow-600");
 	button.classList.add("text-sky-600");
 	update_timerDisplay();
 	timer = setInterval(() => countdown(button), 1000);
