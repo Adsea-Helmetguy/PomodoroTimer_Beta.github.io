@@ -29,7 +29,10 @@ export function pomodoro_creator(): HTMLElement {
 															longrest_Container.querySelector("#longrest")!)); // ✅ 2. Add the listener directly to that button
 	}
 	if (stop_button && start_pause_button)
-		stop_Container.addEventListener('click', () => pomodoro_stop_Timer(start_pause_button));
+		stop_Container.addEventListener('click', () => pomodoro_stop_Timer(start_pause_button,
+															pomodoro_Container.querySelector("#Pomodoro")!,
+															shortrest_Container.querySelector("#shortrest")!,
+															longrest_Container.querySelector("#longrest")!));
 
 	const	two_button_container = document.createElement("div");
 	two_button_container.id = "start_pause_stop";

@@ -9,6 +9,8 @@ window.addEventListener("DOMContentLoaded", () => {
 	const app = document.getElementById("app");
 	const app_header = document.getElementById("app_header");
 	if (app && app_header && !document.getElementById("pomodoro")) {
+		// const timerCircle = createTimerCircle("25:00");
+		// app.appendChild(timerCircle);
 		app.append(pomodoro_creator());
 		app_header.append(pomodoro_creator());
 	}
