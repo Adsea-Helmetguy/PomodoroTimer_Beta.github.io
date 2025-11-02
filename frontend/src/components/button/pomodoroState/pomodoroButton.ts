@@ -1,6 +1,6 @@
 import { meowMp3, NotifyToast_header } from "../pomodoroHelper/pomodoro_helper.js";
 import { timerUI } from "../pomodoroState/pomodoroColour.js";
-import { stateTimer, switchPhase, handlePhaseEnd, timeforPomodoro, timeforRest, timeforLongRest } from "./pomodoroState";
+import { stateTimer, switchPhase, handlePhaseEnd, timeforPomodoro, timeforRest, timeforLongRest, cyclePomodoro, cycleRest, cycleLongrest } from "./pomodoroState";
 
 type TailwindColor = "green" | "blue" | "yellow"; // etc
 
@@ -70,9 +70,15 @@ export function	update_timerDisplay() {
 function resetTimer() {
 	if (stateTimer.timer) {
 		clearInterval(stateTimer.timer);
+		
 		stateTimer.timer = null;
 	}
-	stateTimer.timeLeft = timeforPomodoro;
+	if(stateTimer.state === "rest")
+		stateTimer.timeLeft = timeforRest;
+	else if (stateTimer.state === "longrest")
+		stateTimer.timeLeft = timeforLongRest;
+	else
+		stateTimer.timeLeft = timeforPomodoro; 
 	update_timerDisplay();
 }
 
@@ -99,7 +105,7 @@ function	countdown(button: Element, pomodoro: HTMLButtonElement, rest: HTMLButto
 		console.log("-----button state: ", button.textContent);
         stopTimer(button, pomodoro, rest, longrest);
 		console.log("-----button state AFTER STOPTIMER: ", button.textContent);
-		handlePhaseEnd(button);
+		handlePhaseEnd();
 	}
 	update_timerDisplay();
 }
