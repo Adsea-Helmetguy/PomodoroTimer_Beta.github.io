@@ -7,10 +7,10 @@ import { renderHomePage, render404Page } from "./homepage.js";
 // import { renderGameModes } from "./pong/ui/gameMode.js";
 // import { marcus_renderProfilePage } from "./marcus_profile.js"
 
-function getCurrentPath() {
-    // Strip out the repo name if it exists
-    return window.location.pathname.replace("/Pomodoro_Timer_LuoLuo", "");
-}
+// function getCurrentPath() {
+//     // Strip out the repo name if it exists
+//     return window.location.pathname.replace("/Pomodoro_Timer_LuoLuo", "");
+// }
 
 export function renderApp() {
 	const app = document.getElementById("app")!;
@@ -18,8 +18,19 @@ export function renderApp() {
 	app.innerHTML = "";
 	app_header.innerHTML = "";
 
-	const path = getCurrentPath();
-	if (path === "/" || path === "")
+	// normalize by removing the configured base (works in dev and on GH Pages)
+    const base = (import.meta.env.BASE_URL ?? "/");
+    let path = window.location.pathname;
+
+    // ensure base ends with a slash for matching
+    const basePath = base.endsWith("/") ? base : base + "/";
+
+    // strip basePath if present at start
+    if (path.startsWith(basePath)) path = path.slice(basePath.length - 1); // keep leading '/'
+
+
+	// const path = getCurrentPath();
+	if (path === "/" || path === "" || path === "/index.html")
 		renderHomePage(app, app_header);
 	else
 		render404Page(app);
